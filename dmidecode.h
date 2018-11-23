@@ -1,5 +1,4 @@
 /*
- * Command line handling of dmidecode
  * This file is part of the dmidecode project.
  *
  *   Copyright (C) 2005-2008 Jean Delvare <khali@linux-fr.org>
@@ -19,31 +18,12 @@
  *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
-
-
-struct string_keyword
+struct dmi_header
 {
-	const char *keyword;
 	u8 type;
-	u8 offset;
+	u8 length;
+	u16 handle;
+	u8 *data;
 };
 
-struct opt
-{
-	const char *devmem;
-	unsigned int flags;
-	u8 *type;
-	const struct string_keyword *string;
-	char *dumpfile;
-};
-extern struct opt opt;
-
-#define FLAG_VERSION            (1 << 0)
-#define FLAG_HELP               (1 << 1)
-#define FLAG_DUMP               (1 << 2)
-#define FLAG_QUIET              (1 << 3)
-#define FLAG_DUMP_BIN           (1 << 4)
-#define FLAG_FROM_DUMP          (1 << 5)
-
-int parse_command_line(int argc, char * const argv[]);
-void print_help(void);
+const char *dmi_string(const struct dmi_header *dm, u8 s);

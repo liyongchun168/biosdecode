@@ -1,8 +1,7 @@
 /*
- * Command line handling of dmidecode
  * This file is part of the dmidecode project.
  *
- *   Copyright (C) 2005-2008 Jean Delvare <khali@linux-fr.org>
+ *   Copyright (C) 2003-2010 Jean Delvare <khali@linux-fr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -19,31 +18,13 @@
  *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+#include <sys/types.h>
 
+#include "types.h"
 
-struct string_keyword
-{
-	const char *keyword;
-	u8 type;
-	u8 offset;
-};
+#define ARRAY_SIZE(x) (sizeof(x)/sizeof((x)[0]))
 
-struct opt
-{
-	const char *devmem;
-	unsigned int flags;
-	u8 *type;
-	const struct string_keyword *string;
-	char *dumpfile;
-};
-extern struct opt opt;
-
-#define FLAG_VERSION            (1 << 0)
-#define FLAG_HELP               (1 << 1)
-#define FLAG_DUMP               (1 << 2)
-#define FLAG_QUIET              (1 << 3)
-#define FLAG_DUMP_BIN           (1 << 4)
-#define FLAG_FROM_DUMP          (1 << 5)
-
-int parse_command_line(int argc, char * const argv[]);
-void print_help(void);
+int checksum(const u8 *buf, size_t len);
+void *mem_chunk(size_t base, size_t len, const char *devmem);
+int write_dump(size_t base, size_t len, const void *data, const char *dumpfile, int add);
+u64 u64_range(u64 start, u64 end);

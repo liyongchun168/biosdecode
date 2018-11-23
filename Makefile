@@ -9,9 +9,9 @@
 
 CC      = gcc
 CFLAGS  = -W -Wall -Wshadow -Wstrict-prototypes -Wpointer-arith -Wcast-qual \
-          -Wcast-align -Wwrite-strings -Wnested-externs -Winline -O2 \
-          -pedantic -g
-TARGET  = dmidecode
+          -Wcast-align -Wwrite-strings -Wmissing-prototypes -Winline -Wundef -O2
+          
+TARGET  = biosdecode
 PREFIX  = /usr/local
 
 all : $(TARGET)
